@@ -119,6 +119,12 @@ public class ItemCustomWeapon extends Item {
 				s = net.minecraft.client.resources.I18n.format("dragon_sword_fire.hurt2");
 				tooltip.add(TextFormatting.RED + s);
 			}
+			else if(this.material == InFCompat.DRAGON_BONE_LIGHTNING) {
+				String s = net.minecraft.client.resources.I18n.format("dragon_sword_lightning.hurt1");
+				tooltip.add(TextFormatting.GREEN + s);
+				s = net.minecraft.client.resources.I18n.format("dragon_sword_lightning.hurt2");
+				tooltip.add(TextFormatting.RED + s);
+			}
 		}
 	}
 	

@@ -36,22 +36,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft
 {
-    mappings channel: mappings_channel, version: mappings_version 
-    runs
-    {
-        client
-        {
-		    args "--username=Dev"
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-			property 'forge.logging.console.level', 'debug'
-        }
-        server
-        {
-			property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-			property 'forge.logging.console.level', 'debug'
-        }
-    }
+    mappings channel: mappings_channel, version: mappings_version
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

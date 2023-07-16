@@ -1,14 +1,19 @@
 package com.mujmajnkraft.bettersurvival.integration;
 
 import com.github.alexthe666.iceandfire.entity.*;
+import com.github.alexthe666.iceandfire.util.ChainLightningHelper;
+import com.mujmajnkraft.bettersurvival.items.ItemCustomWeapon;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.util.EnumHelper;
 
 import javax.annotation.Nullable;
@@ -19,6 +24,7 @@ public abstract class InFCompat {
     public static final Item.ToolMaterial DRAGON_BONE = com.github.alexthe666.iceandfire.core.ModItems.boneTools;
     public static final Item.ToolMaterial DRAGON_BONE_FLAMED = com.github.alexthe666.iceandfire.core.ModItems.fireBoneTools;
     public static final Item.ToolMaterial DRAGON_BONE_ICED = com.github.alexthe666.iceandfire.core.ModItems.iceBoneTools;
+    public static final Item.ToolMaterial DRAGON_BONE_LIGHTNING = com.github.alexthe666.iceandfire.core.ModItems.lightningBoneTools;
     public static final Item.ToolMaterial JUNGLE_CHITIN = EnumHelper.addToolMaterial(
             "JungleChitin",
             com.github.alexthe666.iceandfire.core.ModItems.myrmexChitin.getHarvestLevel(),
@@ -34,11 +40,15 @@ public abstract class InFCompat {
             com.github.alexthe666.iceandfire.core.ModItems.myrmexChitin.getAttackDamage(),
             com.github.alexthe666.iceandfire.core.ModItems.myrmexChitin.getEnchantability());
 
-    public static float getMaterialModifier(Item.ToolMaterial mat, EntityLivingBase target, @Nullable EntityPlayer player) {
-        return getMaterialModifier(mat, target, player, true);
+    public static float getMaterialModifier(ItemStack stack, EntityLivingBase target, @Nullable EntityPlayer player) {
+        return getMaterialModifier(stack, target, player, true);
     }
 
-    public static float getMaterialModifier(Item.ToolMaterial mat, EntityLivingBase target, @Nullable EntityPlayer player, boolean effect) {
+    public static float getMaterialModifier(ItemStack stack, EntityLivingBase target, @Nullable EntityPlayer player, boolean effect) {
+        if (!(stack.getItem() instanceof ItemCustomWeapon)) {
+            return 0.0F;
+        }
+        Item.ToolMaterial mat = ((ItemCustomWeapon) stack.getItem()).getMaterial();
         if(mat == InFCompat.SILVER) {
             if(target.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
                 return 2.0F;
@@ -73,6 +83,14 @@ public abstract class InFCompat {
                 return 8.0F;
             }
         }
+        else if(mat == InFCompat.DRAGON_BONE_LIGHTNING) {
+            if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
+                target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 5.25F);
+            }
+            ChainLightningHelper.createChainLightningFromTarget(target.world, stack, target);
+            target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
+        }
+
         return 0.0F;
     }
 
