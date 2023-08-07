@@ -87,7 +87,7 @@ public abstract class InFCompat {
             if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
                 target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 5.25F);
             }
-            ChainLightningHelper.createChainLightningFromTarget(target.world, stack, target);
+            ChainLightningHelper.createChainLightningFromTarget(target.world, target, player);
             target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
         }
 
