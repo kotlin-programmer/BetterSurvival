@@ -1,13 +1,12 @@
 package com.mujmajnkraft.bettersurvival.integration;
 
+import com.github.alexthe666.iceandfire.api.ChainLightningUtils;
 import com.github.alexthe666.iceandfire.entity.*;
-import com.github.alexthe666.iceandfire.util.ChainLightningHelper;
 import com.mujmajnkraft.bettersurvival.items.ItemCustomWeapon;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
@@ -87,7 +86,7 @@ public abstract class InFCompat {
             if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
                 target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 5.25F);
             }
-            ChainLightningHelper.createChainLightningFromTarget(target.world, target, player);
+            ChainLightningUtils.createChainLightningFromTarget(target.world, target, player);
             target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
         }
 
