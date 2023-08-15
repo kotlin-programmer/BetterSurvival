@@ -63,8 +63,8 @@ public abstract class InFCompat {
         }
         else if(mat == InFCompat.DRAGON_BONE_ICED) {
             if(effect) {
-                FrozenEntityProperties frozenProps = EntityPropertiesHandler.INSTANCE.getProperties(target, FrozenEntityProperties.class);
-                frozenProps.setFrozenFor(200);
+                EntityEffectProperties effectProps = EntityPropertiesHandler.INSTANCE.getProperties(target, EntityEffectProperties.class);
+                effectProps.setFrozenFor(200);
                 target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 2));
                 target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, 2));
                 if(player != null) target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
@@ -83,7 +83,7 @@ public abstract class InFCompat {
             }
         }
         else if(mat == InFCompat.DRAGON_BONE_LIGHTNING) {
-            if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
+            if(target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
                 target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 5.25F);
             }
             ChainLightningUtils.createChainLightningFromTarget(target.world, target, player);
@@ -106,7 +106,7 @@ public abstract class InFCompat {
     }
 
     public static boolean isStoned(EntityLivingBase entity) {
-        StoneEntityProperties properties = (StoneEntityProperties) EntityPropertiesHandler.INSTANCE.getProperties(entity, StoneEntityProperties.class);
-        return (properties != null && properties.isStone);
+        EntityEffectProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(entity, EntityEffectProperties.class);
+        return (properties != null && properties.isStone());
     }
 }
