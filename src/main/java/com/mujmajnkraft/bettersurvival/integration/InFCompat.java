@@ -8,6 +8,7 @@ import com.mujmajnkraft.bettersurvival.items.ItemCustomWeapon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
@@ -84,11 +85,13 @@ public abstract class InFCompat {
             }
         }
         else if(mat == InFCompat.DRAGON_BONE_LIGHTNING) {
-            if(target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
-                target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 5.25F);
+            if(effect) {
+                ChainLightningUtils.createChainLightningFromTarget(target.world, target, player);
+                if(player != null) target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
             }
-            ChainLightningUtils.createChainLightningFromTarget(target.world, target, player);
-            target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
+            if(InFCompat.isFireDragon(target) || InFCompat.isIceDragon(target)) {
+                target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 9.5F);
+            }
         }
 
         return 0.0F;
