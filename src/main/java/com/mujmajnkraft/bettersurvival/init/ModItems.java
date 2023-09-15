@@ -61,8 +61,9 @@ public class ModItems {
 	@SubscribeEvent
 	public void registerItems(RegistryEvent.Register<Item> event) {
 		if(BetterSurvival.isIafLoaded) {
+			materials.remove(ModItems.COPPER);
 			materials.remove(ModItems.SILVER);
-			materials.addAll(Arrays.asList(InFCompat.SILVER, InFCompat.DRAGON_BONE, InFCompat.DRAGON_BONE_FLAMED, InFCompat.DRAGON_BONE_ICED, InFCompat.DRAGON_BONE_LIGHTNING, InFCompat.JUNGLE_CHITIN, InFCompat.DESERT_CHITIN));
+			materials.addAll(Arrays.asList(InFCompat.COPPER, InFCompat.SILVER, InFCompat.DRAGON_BONE, InFCompat.DRAGON_BONE_FLAMED, InFCompat.DRAGON_BONE_ICED, InFCompat.DRAGON_BONE_LIGHTNING, InFCompat.JUNGLE_CHITIN, InFCompat.DESERT_CHITIN));
 		}
 
 		crossbow.setRegistryName(Reference.MOD_ID, "itemcrossbow");

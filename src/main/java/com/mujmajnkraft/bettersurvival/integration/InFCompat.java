@@ -8,7 +8,6 @@ import com.mujmajnkraft.bettersurvival.items.ItemCustomWeapon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
@@ -21,6 +20,7 @@ import javax.annotation.Nullable;
 
 public abstract class InFCompat {
 
+    public static final Item.ToolMaterial COPPER = com.github.alexthe666.iceandfire.core.ModItems.copperTools;
     public static final Item.ToolMaterial SILVER = com.github.alexthe666.iceandfire.core.ModItems.silverTools;
     public static final Item.ToolMaterial DRAGON_BONE = com.github.alexthe666.iceandfire.core.ModItems.boneTools;
     public static final Item.ToolMaterial DRAGON_BONE_FLAMED = com.github.alexthe666.iceandfire.core.ModItems.fireBoneTools;
@@ -90,7 +90,7 @@ public abstract class InFCompat {
                 if(player != null) target.knockBack(target, 1F, player.posX - target.posX, player.posZ - target.posZ);
             }
             if(InFCompat.isFireDragon(target) || InFCompat.isIceDragon(target)) {
-                target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 9.5F);
+                return 4.0F;
             }
         }
 
